@@ -1,0 +1,50 @@
+{
+  "name": "sunnysideup/preview-all-elements",
+  "description": "In dev mode you can pick any page and see all the elemental blocks loaded onto that one page, for easy checking.",
+  "type": "silverstripe-vendormodule",
+  "keywords": [
+    "blocks",
+    "block",
+    "elemental",
+    "elemental blocks",
+    "preview",
+    "dev tools",
+    "templates"
+  ],
+  "license": "BSD-3-Clause",
+  "require": {
+    "silverstripe/framework": "^5.0",
+    "silverstripe/admin": "^2.0"
+  },
+  "require-dev": {
+    "sunnysideup/sswebpack_engine_only": "dev-master",
+    "silverleague/ideannotator": "*",
+    "phpunit/phpunit": "^9.6",
+    "squizlabs/php_codesniffer": "^3.7",
+    "silverstripe/standards": "^1",
+    "phpstan/extension-installer": "^1.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sunnysideup\\PreviewAllElements\\": "src/"
+    }
+  },
+  "extra": {
+    "expose": [
+      "client/dist"
+    ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "bin": [
+    "bin/npm-build-preview-all-elements.sh",
+    "bin/npm-watch-preview-all-elements.sh"
+  ],
+  "authors": [
+    {
+      "name": "Nicolaas Thiemen Francken",
+      "email": "modules@sunnysideup.co.nz",
+      "role": "lead developer"
+    }
+  ]
+}
