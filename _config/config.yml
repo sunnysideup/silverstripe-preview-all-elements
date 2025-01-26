@@ -1,1 +1,12 @@
-# see https://docs.silverstripe.org/en/developer_guides/configuration/configuration/
+---
+Name: elemental-preview-all-elements
+Except:
+  environment: live
+---
+SilverStripe\Core\Injector\Injector:
+  DNADesign\Elemental\Models\ElementalArea:
+    class: Sunnysideup\PreviewAllElements\ElementalAreaExtension
+
+PageController:
+  extensions:
+    - Sunnysideup\PreviewAllElements\PageExtension
