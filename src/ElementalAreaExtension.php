@@ -25,10 +25,9 @@ class ElementalAreaExtension extends ElementalArea
         if (Director::isLive()) {
             return;
         }
-        $owner = $this->getOwner();
         $list = $className::get();
         $count = $list->count();
-        $limit = $owner->config()->get('max_elements_for_preview');
+        $limit = $this->config()->get('max_elements_for_preview');
         if ($count > $limit) {
             $classes = ClassInfo::subclassesFor($className, false);
             $classCount = count($classes);
@@ -45,10 +44,10 @@ class ElementalAreaExtension extends ElementalArea
         if (! $sort) {
             $sort = DB::get_conn()->random() . ' ASC';
         }
-        $owner->cacheData['elements'] = $list->orderBy($sort);
-        foreach ($owner->cacheData['elements'] as $key => $element) {
+        $this->cacheData['elements'] = $list->orderBy($sort);
+        foreach ($this->cacheData['elements'] as $key => $element) {
             if (!$element->canView()) {
-                unset($owner->cacheData['elements'][$key]);
+                $this->cacheData['elements'] = $this->cacheData['elements']->exclude(['ID' => $element->ID]);
             }
         }
     }

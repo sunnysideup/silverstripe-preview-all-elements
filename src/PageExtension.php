@@ -15,7 +15,7 @@ class PageExtension extends Extension
         if (Director::isLive()) {
             return;
         }
-        if ($this->owner->getRequest()->getVar('all')) {
+        if ($this->owner->getRequest()->getVar('previewall')) {
             $this->owner->ElementalArea->LoadAllElements();
         }
     }
