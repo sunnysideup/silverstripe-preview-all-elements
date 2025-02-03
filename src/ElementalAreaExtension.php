@@ -16,7 +16,7 @@ use SilverStripe\ORM\FieldType\DBHTMLText;
  * @property array $cacheData
  */
 
-class ElementalAreaExtension extends ElementalArea
+class ElementalAreaExtension extends Extension
 {
     private static $max_elements_for_preview = 100;
 
@@ -25,9 +25,10 @@ class ElementalAreaExtension extends ElementalArea
         if (Director::isLive()) {
             return;
         }
+        $owner = $this->getOwner();
         $list = $className::get();
         $count = $list->count();
-        $limit = $this->config()->get('max_elements_for_preview');
+        $limit = $owner->config()->get('max_elements_for_preview');
         if ($count > $limit) {
             $classes = ClassInfo::subclassesFor($className, false);
             $classCount = count($classes);
@@ -44,18 +45,11 @@ class ElementalAreaExtension extends ElementalArea
         if (! $sort) {
             $sort = DB::get_conn()->random() . ' ASC';
         }
-        $this->cacheData['elements'] = $list->orderBy($sort);
-        foreach ($this->cacheData['elements'] as $key => $element) {
+        $owner->cacheData['elements'] = $list->orderBy($sort);
+        foreach ($owner['elements'] as $key => $element) {
             if (!$element->canView()) {
-                $this->cacheData['elements'] = $this->cacheData['elements']->exclude(['ID' => $element->ID]);
+                $owner->cacheData['elements'] = $owner->cacheData['elements']->exclude(['ID' => $element->ID]);
             }
         }
-    }
-    /**
-     * @return DBHTMLText
-     */
-    public function forTemplate()
-    {
-        return $this->renderWith(parent::class);
     }
 }

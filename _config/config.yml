@@ -3,9 +3,9 @@ Name: elemental-preview-all-elements
 Except:
   environment: live
 ---
-SilverStripe\Core\Injector\Injector:
-  DNADesign\Elemental\Models\ElementalArea:
-    class: Sunnysideup\PreviewAllElements\ElementalAreaExtension
+DNADesign\Elemental\Models\ElementalArea:
+  extensions:
+    - Sunnysideup\PreviewAllElements\ElementalAreaExtension
 
 PageController:
   extensions:
