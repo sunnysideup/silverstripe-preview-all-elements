@@ -7,6 +7,7 @@ use DNADesign\Elemental\Models\ElementalArea;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Extension;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DB;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 
@@ -45,11 +46,13 @@ class ElementalAreaExtension extends Extension
         if (! $sort) {
             $sort = DB::get_conn()->random() . ' ASC';
         }
-        $owner->cacheData['elements'] = $list->orderBy($sort);
-        foreach ($owner['elements'] as $key => $element) {
-            if (!$element->canView()) {
-                $owner->cacheData['elements'] = $owner->cacheData['elements']->exclude(['ID' => $element->ID]);
+        $al = ArrayList::create();
+        $list->orderBy($sort);
+        foreach ($list as $element) {
+            if ($element->canView()) {
+                $al->push($element);
             }
         }
+        $owner->setElementsCached($al);
     }
 }
