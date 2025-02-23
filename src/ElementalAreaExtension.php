@@ -26,6 +26,9 @@ class ElementalAreaExtension extends Extension
         if (Director::isLive()) {
             return;
         }
+        if (! $sort) {
+            $sort = DB::get_conn()->random() . ' ASC';
+        }
         $owner = $this->getOwner();
         $list = $className::get();
         $count = $list->count();
@@ -39,15 +42,21 @@ class ElementalAreaExtension extends Extension
                 $maxPerClass = 1;
             }
             foreach ($classes as $subClassName) {
-                $idArray = array_merge($idArray, $subClassName::get()->limit($maxPerClass)->column('ID'));
+                $idArray = array_merge(
+                    $idArray,
+                    $subClassName::get()
+                        ->orderBy($sort)
+                        ->limit($maxPerClass)
+                        ->column('ID')
+                );
             }
-            $list = $className::get()->filter(['ID' => $idArray]);
+            $list = $className::get()
+                ->filter(['ID' => $idArray])
+                ->orderBy($sort);
         }
-        if (! $sort) {
-            $sort = DB::get_conn()->random() . ' ASC';
-        }
+
         $al = ArrayList::create();
-        $list->orderBy($sort);
+        $list = $list->orderBy($sort);
         foreach ($list as $element) {
             if ($element->canView()) {
                 $al->push($element);
