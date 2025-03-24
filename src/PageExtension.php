@@ -16,7 +16,10 @@ class PageExtension extends Extension
             return;
         }
         if ($this->owner->getRequest()->getVar('previewall')) {
-            $this->owner->ElementalArea->LoadAllElements();
+            $elementalArea = $this->owner->ElementalArea();
+            if ($elementalArea) {
+                $this->owner->ElementalArea->LoadAllElements();
+            }
         }
     }
 }
