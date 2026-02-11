@@ -2,11 +2,8 @@
 
 namespace Sunnysideup\PreviewAllElements;
 
-use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Control\Director;
-use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Extension;
-use SilverStripe\ORM\DB;
 
 class PageExtension extends Extension
 {
@@ -15,12 +12,10 @@ class PageExtension extends Extension
         if (Director::isLive()) {
             return;
         }
-        if ($this->owner->getRequest()->getVar('previewall')) {
-            if ($this->owner->hasMethod('ElementalArea')) {
-                $elementalArea = $this->owner->ElementalArea();
-                if ($elementalArea) {
-                    $this->owner->ElementalArea->LoadAllElements();
-                }
+        if ($this->owner->getRequest()->getVar('previewall') && $this->owner->hasMethod('ElementalArea')) {
+            $elementalArea = $this->owner->ElementalArea();
+            if ($elementalArea) {
+                $this->owner->ElementalArea->LoadAllElements();
             }
         }
     }

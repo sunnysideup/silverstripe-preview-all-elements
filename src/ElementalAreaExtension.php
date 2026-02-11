@@ -3,13 +3,11 @@
 namespace Sunnysideup\PreviewAllElements;
 
 use DNADesign\Elemental\Models\BaseElement;
-use DNADesign\Elemental\Models\ElementalArea;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Extension;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DB;
-use SilverStripe\ORM\FieldType\DBHTMLText;
 
 /**
  * @property int $max_elements_for_preview
