@@ -2,11 +2,11 @@
 
 namespace Sunnysideup\PreviewAllElements;
 
+use SilverStripe\Model\List\ArrayList;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Extension;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DB;
 
 /**
