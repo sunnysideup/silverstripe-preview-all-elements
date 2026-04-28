@@ -2,11 +2,11 @@
 
 namespace Sunnysideup\PreviewAllElements;
 
+use SilverStripe\Model\List\ArrayList;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Extension;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DB;
 
 /**
@@ -24,9 +24,11 @@ class ElementalAreaExtension extends Extension
         if (Director::isLive()) {
             return;
         }
+
         if (! $sort) {
             $sort = DB::get_conn()->random() . ' ASC';
         }
+
         $owner = $this->getOwner();
         $list = $className::get();
         $count = $list->count();
@@ -39,6 +41,7 @@ class ElementalAreaExtension extends Extension
             if ($maxPerClass < 1) {
                 $maxPerClass = 1;
             }
+
             foreach ($classes as $subClassName) {
                 $idArray = array_merge(
                     $idArray,
@@ -48,6 +51,7 @@ class ElementalAreaExtension extends Extension
                         ->column('ID')
                 );
             }
+
             $list = $className::get()
                 ->filter(['ID' => $idArray])
                 ->orderBy($sort);
@@ -60,6 +64,7 @@ class ElementalAreaExtension extends Extension
                 $al->push($element);
             }
         }
+
         $owner->setElementsCached($al);
     }
 }
