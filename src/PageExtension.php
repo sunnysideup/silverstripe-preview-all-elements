@@ -12,10 +12,11 @@ class PageExtension extends Extension
         if (Director::isLive()) {
             return;
         }
-        if ($this->owner->getRequest()->getVar('previewall') && $this->owner->hasMethod('ElementalArea')) {
-            $elementalArea = $this->owner->ElementalArea();
+
+        if ($this->getOwner()->getRequest()->getVar('previewall') && $this->getOwner()->hasMethod('ElementalArea')) {
+            $elementalArea = $this->getOwner()->ElementalArea();
             if ($elementalArea) {
-                $this->owner->ElementalArea->LoadAllElements();
+                $this->getOwner()->ElementalArea->LoadAllElements();
             }
         }
     }
